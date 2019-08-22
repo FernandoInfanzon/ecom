@@ -24,7 +24,8 @@ function escape_string($string){
 }
 
 function fetch_array($result){
-    return mysql_fetch_array($result); 
+    return mysqli_fetch_array($result);
+     
 }
 
 ?>
