@@ -8,7 +8,7 @@
                 $query = "SELECT * FROM categories";
                 $send_query = mysqli_query($connection, $query);
 
-                if(!send_query) {
+                if(!$send_query) {
                     die("QUERY FAILED". mysqli_error($connection));
                 }
 
