@@ -40,12 +40,12 @@ function get_products(){
 $product = <<<DELIMETER
 <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="{$row['product_image']}" alt="">
+                        <a href="item.php?id={$row['product_id']}"><img src="{$row['product_image']}" alt=""></a>
                             <div class="caption">
                                 <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                                 <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                                 </h4>
-                                <p>{$row['product_description']}</p>
+                                <p>{$row['product_short_description']}</p>
                                 <a class="btn btn-primary" href="#">Add to Cart</a>
                             </div>
                         </div>
@@ -54,5 +54,22 @@ DELIMETER;
 echo $product;
     }
 }
+
+//get categories
+
+function get_categories(){
+    $query = query("SELECT * FROM categories");
+    confirm($query);
+
+    while($row = fetch_array($query)){
+
+        $categories = <<<DELIMETER
+        <a href='category.php?id={$row['cat_id']}' class='list-group-item'>{$row['cat_title']}</a>
+DELIMETER;
+        echo $categories;
+            }
+        }
+
+
 
 ?>
