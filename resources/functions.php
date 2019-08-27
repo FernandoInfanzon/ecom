@@ -3,6 +3,21 @@
 
 // helper functions
 
+function set_message($msg){
+    if(!empty($msg)){
+        $_SESSION['message'] = $msg;
+    } else {
+        $msg = "";
+    }
+}
+
+function display_message(){
+    if(isset($_SESSION['message'])){
+        echo $_SESSION['message'];
+        unset($_SESSION['message']);
+    }
+}
+
 function redirect($location){
     header("Location:$location");
 }
@@ -69,6 +84,92 @@ DELIMETER;
         echo $categories;
             }
         }
+
+// get products about category
+
+function get_category_products(){
+    $query = query("SELECT * FROM products WHERE product_category_id= " . escape_string($_GET['id']) . " ");
+    confirm($query);
+
+    while($row = fetch_array($query)){
+
+$product = <<<DELIMETER
+<div class="col-md-3 col-sm-6 hero-feature">
+    <div class="thumbnail">
+        <img src="{$row['product_image']}" alt="">
+            <div class="caption">
+                <h3>{$row['product_title']}</h3>
+                <p>{$row['product_short_description']}</p>
+                <p>
+                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="item.php?id={$row['product_id']}" class="btn btn-default">More Info</a>
+                </p>
+            </div>
+    </div>
+</div>
+
+DELIMETER;
+echo $product;
+    }
+}
+
+// get products in shop 
+
+function get_category_products_shop(){
+    $query = query("SELECT * FROM products ");
+    confirm($query);
+
+    while($row = fetch_array($query)){
+
+$product = <<<DELIMETER
+<div class="col-md-3 col-sm-6 hero-feature">
+    <div class="thumbnail">
+        <img src="{$row['product_image']}" alt="">
+            <div class="caption">
+                <h3>{$row['product_title']}</h3>
+                <p>{$row['product_short_description']}</p>
+                <p>
+                    <a href="#" class="btn btn-primary">Buy Now!</a> <a href="item.php?id={$row['product_id']}" class="btn btn-default">More Info</a>
+                </p>
+            </div>
+    </div>
+</div>
+
+DELIMETER;
+echo $product;
+    }
+}
+
+// Login user
+
+function login_user(){
+   if(isset($_POST['submit'])){
+    $email = escape_string($_POST['email']);
+    $password = escape_string($_POST['password']);
+
+
+    $query = query(" SELECT * FROM users WHERE email = '{$email}' AND password = '{$password}' AND active='1' ");
+    confirm($query);
+
+    if(mysqli_num_rows($query) == 0){
+        set_message("Your Password or Username are wrong");
+        redirect("login.php");
+
+    } else {
+        set_message("Hi {$username}, Welcome to Admin Console ");
+        redirect("admin");
+    }
+
+    }
+
+
+
+
+
+
+}
+
+
+
 
 
 
