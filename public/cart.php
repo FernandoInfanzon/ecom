@@ -42,7 +42,7 @@
 
 <!--  ***********CART TOTALS*************-->
             
-<div class="col-xs-4 pull-right ">
+<div class="col-md-4 pull-right">
 <h2>Cart Totals</h2>
 
 <table class="table table-bordered" cellspacing="0">

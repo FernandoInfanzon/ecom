@@ -160,15 +160,32 @@ function login_user(){
     }
 
     }
-
-
-
-
-
-
 }
 
+function send_message(){
+    if(isset($_POST['submit'])){
 
+        $to             = "hello@technoayuda.com";
+        $form_name      = $_POST['name'];
+        $form_subject   = $_POST['subject'];
+        $form_email     = $_POST['email'];
+        $form_message   = $_POST['message'];
+        
+        $headers = "From: {$form_name}";
+
+        $result = mail($to, $subject, $message, $headers);
+
+        if(!$result) {
+            set_message("Sorry we could not send your message");
+            redirect("contact.php");
+        } else {
+            set_message("Your message has been sent");
+            redirect("contact.php");
+        }
+
+    }
+
+}
 
 
 
