@@ -1,82 +1,55 @@
 <?php require_once("../resources/config.php"); ?>
-<?php include(TEMPLATE_FRONT.DS."header.php"); ?>
 
-<?php 
-    $_SESSION['product_1'] = 1
+<?php
+
+if(isset($_GET['add'])){
+
+$query = query(" SELECT * FROM products WHERE product_id=" . escape_string($_GET['add'] . " "));
+confirm($query);
+
+while($row = fetch_array($query )){
+
+    if($row['product_quantity'] != $_SESSION['product_' . $_GET['add']]) {
+
+        $_SESSION['product_' . $_GET['add']] += 1;
+        redirect('checkout.php');
+    } else {
+        set_message("We only have ". $row['product_quantity']." ". "{$row['product_title']}" . " available");
+        redirect("checkout.php");
+    }
+
+}
+
+// $_SESSION['product_' . $_GET['add']] += 1;
+// redirect("index.php");
+
+}
+
+
+if(isset($_GET['remove'])){
+
+    $_SESSION['product_' . $_GET['remove']]--;
+    
+    if($_SESSION['product_'. $_GET['remove']] < 1) {
+
+        set_message("NO SE ACEPTAN VALORES NEGATIVOS");
+        redirect('checkout.php');
+        
+    } else {
+        redirect("checkout.php");
+    }
+
+}
+
+if(isset($_GET['delete'])){
+
+    $_SESSION['product_' . $_GET['delete']] = '0';
+
+    redirect('checkout.php');
+}
+
+
+
 ?>
 
-    <!-- Page Content -->
-    <div class="container">
 
-
-<!-- /.row --> 
-
-<div class="row">
-
-      <h1>Checkout</h1>
-
-<form action="">
-    <table class="table table-striped">
-        <thead>
-          <tr>
-           <th>Product</th>
-           <th>Price</th>
-           <th>Quantity</th>
-           <th>Sub-total</th>
-     
-          </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>apple</td>
-                <td>$23</td>
-                <td>3</td>
-                <td>2</td>
-              
-            </tr>
-        </tbody>
-    </table>
-</form>
-
-
-
-<!--  ***********CART TOTALS*************-->
-            
-<div class="col-md-4 pull-right">
-<h2>Cart Totals</h2>
-
-<table class="table table-bordered" cellspacing="0">
-
-<tr class="cart-subtotal">
-<th>Items:</th>
-<td><span class="amount">4</span></td>
-</tr>
-<tr class="shipping">
-<th>Shipping and Handling</th>
-<td>Free Shipping</td>
-</tr>
-
-<tr class="order-total">
-<th>Order Total</th>
-<td><strong><span class="amount">$3444</span></strong> </td>
-</tr>
-
-
-</tbody>
-
-</table>
-
-</div><!-- CART TOTALS-->
-
-
- </div><!--Main Content-->
-
-
-           <hr>
-
-       
-
-    </div>
-    <!-- /.container -->
-
-    <?php include(TEMPLATE_FRONT.DS."footer.php"); ?>

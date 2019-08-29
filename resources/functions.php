@@ -61,7 +61,7 @@ $product = <<<DELIMETER
                                 <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                                 </h4>
                                 <p>{$row['product_short_description']}</p>
-                                <a class="btn btn-primary" href="#">Add to Cart</a>
+                                <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add to Cart</a>
                             </div>
                         </div>
                     </div>
