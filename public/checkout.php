@@ -2,14 +2,6 @@
 <?php require_once("../public/cart.php"); ?>
 <?php include(TEMPLATE_FRONT.DS."header.php"); ?>
 
-<?php 
-   if (isset($_SESSION['product_1'])){
-       echo $_SESSION['product_1'];
-   };
-?>
-
- 
-
     <!-- Page Content -->
     <div class="container">
 
@@ -20,7 +12,12 @@
 <h4 class="text-center bg-danger py-5"><?php display_message(); ?></h4>
       <h1>Checkout</h1>
 
-<form action="">
+
+<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+  <input type="hidden" name="cmd" value="_cart">
+  <input type="hidden" name="business" value="business@technoayuda.com">
+
+
     <table class="table table-striped">
         <thead>
           <tr>
@@ -35,6 +32,9 @@
             <?php cart(); ?>
         </tbody>
     </table>
+    <input type="image" name="submit"
+    src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
+    alt="PayPal - The safer, easier way to pay online">
 </form>
 
 
