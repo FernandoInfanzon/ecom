@@ -1,6 +1,15 @@
 <?php require_once("../../resources/config.php") ?>
 
 <?php include(TEMPLATE_BACK . "/header.php"); ?>
+
+
+<?php
+
+if(!isset($_SESSION['email'])){
+    redirect("../../public/");
+}
+
+?>
         <div id="page-wrapper">
 
             <div class="container-fluid">

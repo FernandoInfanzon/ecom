@@ -61,7 +61,7 @@ $product = <<<DELIMETER
                                 <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                                 </h4>
                                 <p>{$row['product_short_description']}</p>
-                                <a class="btn btn-primary" target="_blank" href="cart.php?add={$row['product_id']}">Add to Cart</a>
+                                <a class="btn btn-primary" target="_blank" href="../resources/cart.php?add={$row['product_id']}">Add to Cart</a>
                             </div>
                         </div>
                     </div>
@@ -149,14 +149,18 @@ function login_user(){
 
     $query = query(" SELECT * FROM users WHERE email = '{$email}' AND password = '{$password}' AND active='1' ");
     confirm($query);
+    $row2 = fetch_array($query);
+    $name = $row2['name'];
 
     if(mysqli_num_rows($query) == 0){
         set_message("Your Password or Username are wrong");
         redirect("login.php");
 
     } else {
-        set_message("Hi {$username}, Welcome to Admin Console ");
-        redirect("admin");
+        $_SESSION['email'] = $email;
+        $_SESSION['name'] = $name;
+        // set_message("Hi {$username}, Welcome to Admin Console ");
+        redirect("admin/");
     }
 
     }
