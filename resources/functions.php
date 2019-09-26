@@ -3,6 +3,11 @@
 
 // helper functions
 
+function last_id(){
+    global $connection;
+    return mysqli_insert_id($connection);
+}
+
 function set_message($msg){
     if(!empty($msg)){
         $_SESSION['message'] = $msg;
@@ -191,7 +196,26 @@ function send_message(){
 
 }
 
+//Backend Functions
 
+function display_orders(){
+    $query = query("SELECT * FROM orders");
+    confirm($query);
+
+    while($row = fetch_array($query)){
+
+        $orders = <<<DELIMETER
+        <tr>
+            <td>{$row['order_id']}</td>
+            <td>{$row['order_amount']}</td>
+            <td>{$row['order_transaction']}</td>
+            <td>{$row['order_currency']}</td>
+            <td>{$row['order_status']}</td>
+        </tr>
+DELIMETER;
+        echo $orders;
+            }
+}
 
 
 ?>
