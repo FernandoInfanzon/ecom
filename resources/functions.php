@@ -199,7 +199,7 @@ function send_message(){
 //Backend Functions
 
 function display_orders(){
-    $query = query("SELECT * FROM orders");
+    $query = query("SELECT * FROM orders WHERE order_active='1' ");
     confirm($query);
 
     while($row = fetch_array($query)){
