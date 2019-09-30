@@ -219,4 +219,33 @@ DELIMETER;
 }
 
 
+/***** Admin Products */
+
+function get_products_in_admin(){
+    $query = query("SELECT * FROM products WHERE active='1' ");
+    confirm($query);
+
+    while($row = fetch_array($query)){
+
+$product = <<<DELIMETER
+<tr>
+    <td>{$row['product_id']}</td>
+    <td>{$row['product_title']}<br>
+        <a href="index.php?edit_product&id={$row['product_id']}">
+            <img src="{$row['product_image']}" class="w-25" alt="{$row['product_title']}">
+        </a>        
+    </td>
+    <td>Category</td>
+    <td>{$row['product_price']}</td>
+    <td>{$row['product_quantity']}</td>
+    <td><a class="btn btn-danger" href="../../resources/templates/back/delete_product.php?id={$row['product_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+
+</tr>
+DELIMETER;
+echo $product;
+    }
+}
+
+
+
 ?>
