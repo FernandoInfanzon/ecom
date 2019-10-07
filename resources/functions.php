@@ -253,11 +253,9 @@ echo $product;
 
 function add_product(){
     if(isset($_POST['publish'])){
-        echo "IT WORKS";
-    }
-
+     
     $product_title              = escape_string($_POST['product_title']);
-    $product_caterory_id        = escape_string($_POST['product_category_id']);
+    $product_category_id        = escape_string($_POST['product_category_id']);
     $product_price              = escape_string($_POST['product_price']);
     $product_description        = escape_string($_POST['product_description']);
     $product_short_description  = escape_string($_POST['product_short_description']);
@@ -272,29 +270,25 @@ function add_product(){
         '{$product_description}', '{$product_short_description}', '{$product_quantity}', '{$product_image}')  ");
     confirm($query);
     $last_id = last_id();
-    set_message('<h4 class="bg-success text-center" style="padding:10px;">New Product with id {$last_id} was Added</h4>');
+    set_message('<h4 class="bg-success text-center" style="padding:10px;">New Product with id '.$last_id.' was Added</h4>');
     redirect("index.php?products");
-    
-//     while($row = fetch_array($query)){
 
-// $product = <<<DELIMETER
-// <tr>
-//     <td>{$row['product_id']}</td>
-//     <td>{$row['product_title']}<br>
-//         <a href="index.php?edit_product&id={$row['product_id']}">
-//             <img src="{$row['product_image']}" class="w-25" alt="{$row['product_title']}">
-//         </a>        
-//     </td>
-//     <td>Category</td>
-//     <td>{$row['product_price']}</td>
-//     <td>{$row['product_quantity']}</td>
-//     <td><a class="btn btn-danger" href="../../resources/templates/back/delete_product.php?id={$row['product_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+}}
 
-// </tr>
-// DELIMETER;
-// echo $product;
-//     }
-}
+
+
+function show_categories_add_product_page(){
+    $query = query("SELECT * FROM categories");
+    confirm($query);
+
+    while($row = fetch_array($query)){
+
+        $categories_options = <<<DELIMETER
+        <option value="{$row['cat_id']}">{$row['cat_title']}</option>
+DELIMETER;
+        echo $categories_options;
+            }
+        }
 
 
 
